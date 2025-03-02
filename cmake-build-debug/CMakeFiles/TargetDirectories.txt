@@ -1,3 +1,0 @@
-/Users/a/Documents/dev/oms/cmake-build-debug/CMakeFiles/oms.dir
-/Users/a/Documents/dev/oms/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/a/Documents/dev/oms/cmake-build-debug/CMakeFiles/rebuild_cache.dir
