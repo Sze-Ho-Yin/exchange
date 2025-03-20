@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service OrderService{
+  rpc placeOrder(PlaceOrderRequest) returns(PlaceOrderResponse){}
+
+}
+
+message PlaceOrderRequest{}
+message PlaceOrderResponse{
+    int32 code =1;
+}
+
+
