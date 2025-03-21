@@ -3,6 +3,7 @@
 using namespace grpc;
 
 class OrderServiceImpl final : public OrderService::Service {
+public:
     OrderServiceImpl() = default;
 
     ~OrderServiceImpl() override = default;
