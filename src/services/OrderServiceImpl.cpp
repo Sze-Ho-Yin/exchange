@@ -3,10 +3,14 @@
 using namespace grpc;
 
 class OrderServiceImpl final : public OrderService::Service {
-     Status placeOrder(
-          ServerContext* context,
-          const PlaceOrderRequest* request,
-          PlaceOrderResponse* response) override {
-          return Status::OK;
-     }
+    OrderServiceImpl() = default;
+
+    ~OrderServiceImpl() override = default;
+
+    Status placeOrder(
+        ServerContext *context,
+        const PlaceOrderRequest *request,
+        PlaceOrderResponse *response) override {
+        return Status::OK;
+    }
 };

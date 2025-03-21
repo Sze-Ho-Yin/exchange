@@ -1,6 +1,6 @@
 add_subdirectory(protos)
 
-add_executable(${PROJECT_NAME} main.cpp "${CMAKE_SOURCE_DIR}/src/services/OrderServiceImpl.cpp")
+add_executable(${PROJECT_NAME} main.cpp)
 
 #internal libraries
 target_link_libraries(${PROJECT_NAME} ${SERVICES})
