@@ -1,3 +1,3 @@
 #!/bin/bash
 
-.././build/src/oms
+.././build/src/exchange

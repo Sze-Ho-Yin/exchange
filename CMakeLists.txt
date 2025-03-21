@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28.1)
-project(oms)
+project(exchange)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
