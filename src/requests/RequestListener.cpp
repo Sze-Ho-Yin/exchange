@@ -21,7 +21,6 @@ private:
 public:
     RequestListener(const string &ip, const string &port): _address(ip + ":" + port) {
         _builder.AddListeningPort(_address, InsecureServerCredentials());
-        _builder.AddCompletionQueue();
         for (const auto service: services) {
             _builder.RegisterService(service);
         }
