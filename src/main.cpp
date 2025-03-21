@@ -1,6 +1,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <boost/asio.hpp>
+#include "services/OrderServiceImpl.cpp"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ inline void doSth(int idx) {
 }
 
 int main() {
+    OrderServiceImpl o;
     auto threadpool = boost::asio::thread_pool(1);
     for (int i = 0; i < 2; ++i) {
         auto method = [=] {
