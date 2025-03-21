@@ -12,6 +12,8 @@ public:
         ServerContext *context,
         const PlaceOrderRequest *request,
         PlaceOrderResponse *response) override {
+        response->set_code(0);
+        spdlog::info("received request");
         return Status::OK;
     }
 };

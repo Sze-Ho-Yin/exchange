@@ -1,30 +1,21 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <boost/asio.hpp>
-#include "services/OrderServiceImpl.cpp"
+#include "services/RequestListener.cpp"
 
 using namespace std;
 
-
-inline void doSth(int idx) {
-    cout << "hello " + to_string(idx) << endl;
-}
-
 int main() {
-    OrderServiceImpl o;
-    auto threadpool = boost::asio::thread_pool(1);
-    for (int i = 0; i < 2; ++i) {
-        auto method = [=] {
-            this_thread::sleep_for(chrono::milliseconds(500));
-            doSth(i);
+    auto threadpool = boost::asio::thread_pool(3);
+    try {
+        auto initRequestListener = []() {
+            RequestListener request_listener("127.0.0.1", "1234");
+            request_listener.start();
         };
-        threadpool.executor().execute(method);
+        threadpool.executor().execute(initRequestListener);
+    } catch (const exception &e) {
+        spdlog::error("OMS start failed. e={}", e.what());
     }
-    spdlog::info("OMS start success");
-    auto method = [] {
-        doSth(100);
-    };
-    threadpool.executor().execute(method);
     threadpool.join();
     return EXIT_SUCCESS;
 }
