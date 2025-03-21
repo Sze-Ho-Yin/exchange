@@ -11,30 +11,34 @@ using namespace std;
 
 class RequestListener {
 private:
-    ServerBuilder builder;
-    const string address;
+    ServerBuilder _builder;
+    const string _address;
     //add required services here
     inline static initializer_list<Service *> services = {
         new OrderServiceImpl
     };
 
 public:
-    RequestListener(const string &ip, const string &port): address(ip + ":" + port) {
-        builder.AddListeningPort(address, InsecureServerCredentials());
+    RequestListener(const string &ip, const string &port): _address(ip + ":" + port) {
+        _builder.AddListeningPort(_address, InsecureServerCredentials());
+        _builder.AddCompletionQueue();
         for (const auto service: services) {
-            builder.RegisterService(service);
+            _builder.RegisterService(service);
         }
     }
 
     ~RequestListener() = default;
 
-    void start() {
-        try {
-            const unique_ptr server(builder.BuildAndStart());
-            spdlog::info("RequestListener start success. listening address={}", address);
-            server->Wait();
-        } catch (const exception &e) {
-            spdlog::error("fail to start requestListener e={}", e.what());
-        }
+    auto Start() {
+        return [this]() {
+            try {
+                const unique_ptr server(_builder.BuildAndStart());
+                spdlog::info("RequestListener start success. listening _address={}", _address);
+                server->Wait();
+            } catch (const exception &e) {
+                spdlog::error("fail to start requestListener e={}", e.what());
+            }
+            delete this;
+        };
     }
 };
