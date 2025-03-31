@@ -19,5 +19,5 @@ public:
 
     ~RequestListener();
 
-    auto Start();
+    std::function<void()> Start();
 };

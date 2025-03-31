@@ -14,7 +14,7 @@ RequestListener::RequestListener(const std::string &ip, const std::string &port)
 
 RequestListener::~RequestListener() = default;
 
-auto RequestListener::Start() {
+std::function<void()> RequestListener::Start() {
     return [this]() {
         try {
             const std::unique_ptr server(_builder.BuildAndStart());

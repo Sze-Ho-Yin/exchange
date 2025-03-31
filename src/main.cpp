@@ -1,7 +1,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <boost/asio.hpp>
-#include "requests/RequestListener.cpp"
+#include "requests/RequestListener.h"
 
 using namespace std;
 
