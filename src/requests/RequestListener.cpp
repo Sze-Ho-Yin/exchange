@@ -1,43 +1,28 @@
 //
 // Created by a on 21/3/2025.
 //
-#include <grpcpp/server_builder.h>
+#include "RequestListener.h"
 #include <spdlog/spdlog.h>
 
-#include "OrderServiceImpl.cpp"
 
-using namespace grpc;
-using namespace std;
+RequestListener::RequestListener(const std::string &ip, const std::string &port): _address(ip + ":" + port) {
+    _builder.AddListeningPort(_address, grpc::InsecureServerCredentials());
+    for (const auto service: services) {
+        _builder.RegisterService(service);
+    }
+}
 
-class RequestListener {
-private:
-    ServerBuilder _builder;
-    const string _address;
-    //add required services here
-    inline static initializer_list<Service *> services = {
-        new OrderServiceImpl
-    };
+RequestListener::~RequestListener() = default;
 
-public:
-    RequestListener(const string &ip, const string &port): _address(ip + ":" + port) {
-        _builder.AddListeningPort(_address, InsecureServerCredentials());
-        for (const auto service: services) {
-            _builder.RegisterService(service);
+auto RequestListener::Start() {
+    return [this]() {
+        try {
+            const std::unique_ptr server(_builder.BuildAndStart());
+            spdlog::info("RequestListener start success. listening _address={}", _address);
+            server->Wait();
+        } catch (const std::exception &e) {
+            spdlog::error("fail to start requestListener e={}", e.what());
         }
-    }
-
-    ~RequestListener() = default;
-
-    auto Start() {
-        return [this]() {
-            try {
-                const unique_ptr server(_builder.BuildAndStart());
-                spdlog::info("RequestListener start success. listening _address={}", _address);
-                server->Wait();
-            } catch (const exception &e) {
-                spdlog::error("fail to start requestListener e={}", e.what());
-            }
-            delete this;
-        };
-    }
-};
+        delete this;
+    };
+}
