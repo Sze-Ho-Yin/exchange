@@ -1,18 +1,20 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include <boost/asio.hpp>
-#include "requests/RequestListener.h"
+
+#include "requests/RequestsConfigurer.h"
 
 using namespace std;
 
 int main() {
-    auto threadpool = boost::asio::thread_pool(3);
+    auto threadpools = vector<unique_ptr<boost::asio::thread_pool> >{};
     try {
-        const auto request_listener = new RequestListener("127.0.0.1", "1234");
-        threadpool.executor().execute(request_listener->Start());
+        threadpools.push_back(requests::start());
     } catch (const exception &e) {
         spdlog::error("OMS start failed. e={}", e.what());
     }
-    threadpool.join();
+    for (const auto &threadpool: threadpools) {
+        threadpool->join();
+    }
     return EXIT_SUCCESS;
 }
