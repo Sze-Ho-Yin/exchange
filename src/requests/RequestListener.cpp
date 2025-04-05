@@ -5,10 +5,12 @@
 #include <spdlog/spdlog.h>
 
 
-RequestListener::RequestListener(const std::string &ip, const std::string &port): _address(ip + ":" + port) {
-    _builder.AddListeningPort(_address, grpc::InsecureServerCredentials());
+RequestListener::RequestListener(const std::string &ip, const std::string &port,
+                                 std::initializer_list<grpc::Service *> services): address(ip + ":" + port),
+    services(services) {
+    builder.AddListeningPort(address, grpc::InsecureServerCredentials());
     for (const auto service: services) {
-        _builder.RegisterService(service);
+        builder.RegisterService(service);
     }
 }
 
@@ -17,8 +19,8 @@ RequestListener::~RequestListener() = default;
 std::function<void()> RequestListener::start() {
     return [this]() {
         try {
-            const std::unique_ptr server(_builder.BuildAndStart());
-            spdlog::info("RequestListener start success. listening _address={}", _address);
+            const std::unique_ptr server(builder.BuildAndStart());
+            spdlog::info("RequestListener start success. listening address={}", address);
             server->Wait();
         } catch (const std::exception &e) {
             spdlog::error("fail to start requestListener e={}", e.what());

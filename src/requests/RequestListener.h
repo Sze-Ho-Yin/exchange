@@ -7,15 +7,14 @@
 
 class RequestListener {
 private:
-    grpc::ServerBuilder _builder;
-    const std::string _address;
+    grpc::ServerBuilder builder;
+    const std::string address;
     //add required services here
-    inline static std::initializer_list<grpc::Service *> services = {
-        new OrderServiceImpl
-    };
+    const std::initializer_list<grpc::Service *> services;
 
 public:
-    explicit RequestListener(const std::string &ip, const std::string &port);
+    explicit RequestListener(const std::string &ip, const std::string &port,
+                             std::initializer_list<grpc::Service *> services);
 
     ~RequestListener();
 
