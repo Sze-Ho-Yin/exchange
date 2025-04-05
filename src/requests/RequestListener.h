@@ -15,7 +15,7 @@ private:
     };
 
 public:
-    RequestListener(const std::string &ip, const std::string &port);
+    explicit RequestListener(const std::string &ip, const std::string &port);
 
     ~RequestListener();
 

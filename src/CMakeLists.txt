@@ -1,11 +1,13 @@
 add_subdirectory(protos)
 add_subdirectory(requests)
+add_subdirectory(counter)
 
 add_executable(${PROJECT_NAME} main.cpp)
 add_executable(demo demoClient.cpp)
 
 #internal libraries
 target_link_libraries(${PROJECT_NAME} requests)
+target_link_libraries(${PROJECT_NAME} counter)
 target_link_libraries(demo protos)
 
 #external libraries
