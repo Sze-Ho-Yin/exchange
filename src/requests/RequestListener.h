@@ -9,7 +9,6 @@ class RequestListener {
 private:
     grpc::ServerBuilder builder;
     const std::string address;
-    //add required services here
     const std::initializer_list<grpc::Service *> services;
 
 public:

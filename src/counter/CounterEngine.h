@@ -8,13 +8,10 @@
 #include "CounterEvent.h"
 #include "State.h"
 
-using CounterEventAllocator = boost::lockfree::allocator<boost::asio::detail::object_pool<CounterEvent *>
->;
-
 class CounterEngine {
 private:
     const unsigned int idx;
-    boost::lockfree::spsc_queue<CounterEvent *, CounterEventAllocator> counterEvents;
+    boost::lockfree::spsc_queue<CounterEvent *> counterEvents;
     const std::unique_ptr<State> state;
 
 public:
