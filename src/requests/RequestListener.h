@@ -9,7 +9,6 @@ class RequestListener {
 private:
     grpc::ServerBuilder builder;
     const std::string address;
-    const std::initializer_list<grpc::Service *> services;
 
 public:
     explicit RequestListener(const std::string &ip, const std::string &port,

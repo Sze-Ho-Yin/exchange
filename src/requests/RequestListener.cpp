@@ -6,8 +6,7 @@
 
 
 RequestListener::RequestListener(const std::string &ip, const std::string &port,
-                                 std::initializer_list<grpc::Service *> services): address(ip + ":" + port),
-    services(services) {
+                                 const std::initializer_list<grpc::Service *> services): address(ip + ":" + port) {
     builder.AddListeningPort(address, grpc::InsecureServerCredentials());
     for (const auto service: services) {
         builder.RegisterService(service);

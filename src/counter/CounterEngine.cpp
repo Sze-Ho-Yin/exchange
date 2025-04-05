@@ -15,7 +15,7 @@ bool CounterEngine::offer(std::unique_ptr<CounterEvent> event) {
     return counterEvents.push(event.release());
 }
 
-inline void onEvent(const CounterEvent &event) {
+inline void onEvent(const CounterEvent &event, const State &state) {
 }
 
 std::function<void()> CounterEngine::start() {
@@ -24,7 +24,7 @@ std::function<void()> CounterEngine::start() {
             try {
                 if (CounterEvent *raw = nullptr; counterEvents.pop(raw)) {
                     std::unique_ptr<CounterEvent> event(raw);
-                    onEvent(*event);
+                    onEvent(*event, *state);
                 }
             } catch (const std::exception &e) {
                 spdlog::error("CounterEngine error. message={}", e.what());
