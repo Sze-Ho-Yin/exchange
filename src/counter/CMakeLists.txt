@@ -14,7 +14,6 @@ target_link_libraries(counter spdlog::spdlog)
 
 #link internal libraries
 target_link_libraries(counter protos)
-target_link_libraries(counter requests)
 
 #include this header
-target_include_directories(counter PUBLIC ${REQUESTS_FILE})
+target_include_directories(counter PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/")

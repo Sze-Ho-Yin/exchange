@@ -5,7 +5,7 @@
 #pragma once
 #include <google/protobuf/message.h>
 
-#include "../common/CounterEnum.h"
+#include "CounterEnum.h"
 
 class CounterEvent {
 private:

@@ -1,6 +1,6 @@
 add_subdirectory(protos)
-add_subdirectory(requests)
 add_subdirectory(counter)
+add_subdirectory(requests)
 
 add_executable(${PROJECT_NAME} main.cpp)
 add_executable(demo demoClient.cpp)

@@ -4,7 +4,8 @@
 #pragma once
 #include <memory>
 #include <boost/asio/thread_pool.hpp>
-#include "../counter/CounterDispatcher.h"
+
+#include "CounterDispatcher.h"
 
 namespace requests {
     constexpr int SIZE = 1;
