@@ -6,10 +6,15 @@
 #include "Processor.h"
 
 class PlaceOrderProcessor final : public Processor {
-    void process(const CounterEvent &event) override {
+public:
+    void process(const CounterEvent &event) const override {
     };
 
-    CounterEnum type() override {
+    [[nodiscard]] CounterEnum type() const override {
         return CounterEnum::PLACE_ORDER;
     };
+
+    PlaceOrderProcessor() = default;
+
+    ~PlaceOrderProcessor() override = default;
 };

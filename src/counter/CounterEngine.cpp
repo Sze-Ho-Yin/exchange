@@ -5,8 +5,13 @@
 #include "CounterEngine.h"
 #include <spdlog/spdlog.h>
 
-CounterEngine::CounterEngine(const unsigned int idx, const std::size_t queueSize): idx(idx), counterEvents(queueSize),
-    state(std::make_unique<State>()) {
+CounterEngine::CounterEngine(const unsigned int idx,
+                             const std::size_t queueSize,
+                             const std::shared_ptr<std::array<std::shared_ptr<const Processor>, counterEnum::size()> >
+                             processors): idx(idx),
+                                          counterEvents(queueSize),
+                                          state(std::make_unique<State>()),
+                                          processors(processors) {
 }
 
 CounterEngine::~CounterEngine() = default;

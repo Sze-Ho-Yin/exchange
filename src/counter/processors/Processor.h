@@ -5,9 +5,12 @@
 #include "../CounterEvent.h"
 
 class Processor {
-    virtual void process(const CounterEvent &event) = 0;
+public:
+    Processor() = default;
 
-    virtual CounterEnum type() = 0;
+    virtual void process(const CounterEvent &event) const = 0;
+
+    [[nodiscard]] virtual CounterEnum type() const = 0;
 
     virtual ~Processor() = default;
 };
