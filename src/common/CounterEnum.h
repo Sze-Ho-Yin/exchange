@@ -16,4 +16,13 @@ namespace counterEnum {
         constexpr int size = static_cast<int>(CounterEnum::COUNTER_ENUM_SIZE);
         return size;
     }
+
+    constexpr std::string toString(CounterEnum enum_) {
+        switch (enum_) {
+            case CounterEnum::PLACE_ORDER:
+                return "PLACE_ORDER";
+            default:
+                return "UNKNOWN";
+        }
+    }
 }

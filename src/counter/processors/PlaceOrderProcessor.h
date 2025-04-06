@@ -7,7 +7,9 @@
 
 class PlaceOrderProcessor final : public Processor {
 public:
-    void process(const CounterEvent &event) const override {
+    void process(const CounterEvent &event, const State &state) const override {
+        spdlog::info("received request userId={}", event.getUserId());
+        event.getReactor()->Finish(grpc::Status::OK);
     };
 
     [[nodiscard]] CounterEnum type() const override {

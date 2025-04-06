@@ -20,7 +20,14 @@ bool CounterEngine::offer(std::unique_ptr<CounterEvent> event) {
     return counterEvents.push(event.release());
 }
 
-inline void onEvent(const CounterEvent &event, const State &state) {
+void CounterEngine::onEvent(const CounterEvent &event, const State &state) const {
+    try {
+        const int index = static_cast<int>(event.getType());
+        processors->at(index)->process(event, state);
+    } catch (const std::exception &e) {
+        spdlog::error("Counter Engine process error. idx={} event={} message={}", idx, static_cast<std::string>(event), e.what());
+        event.getReactor()->Finish(grpc::Status::CANCELLED);
+    }
 }
 
 std::function<void()> CounterEngine::start() {

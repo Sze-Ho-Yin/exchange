@@ -15,10 +15,13 @@ private:
     const std::unique_ptr<State> state;
     const std::shared_ptr<std::array<std::shared_ptr<const Processor>, counterEnum::size()> > processors;
 
+    void onEvent(const CounterEvent &event, const State &state) const;
+
 public:
     explicit CounterEngine(unsigned int idx,
                            std::size_t queueSize,
-                           std::shared_ptr<std::array<std::shared_ptr<const Processor>, counterEnum::size()> > processors);
+                           std::shared_ptr<std::array<std::shared_ptr<const Processor>, counterEnum::size()> >
+                           processors);
 
     ~CounterEngine();
 

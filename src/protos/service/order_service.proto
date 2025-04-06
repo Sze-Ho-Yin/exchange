@@ -5,9 +5,11 @@ service OrderService{
 
 }
 
-message PlaceOrderRequest{}
+message PlaceOrderRequest{
+  uint64 user_id = 1;
+}
 message PlaceOrderResponse{
-    int32 code =1;
+  int32 code = 1;
 }
 
 

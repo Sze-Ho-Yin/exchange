@@ -17,6 +17,7 @@ public:
     std::string placeOrder(const std::string& request_sample_field) {
         // Prepare request
         PlaceOrderRequest request;
+        request.set_user_id(10);
 
         // Send request
         PlaceOrderResponse response;

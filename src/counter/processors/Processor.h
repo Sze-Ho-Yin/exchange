@@ -8,7 +8,7 @@ class Processor {
 public:
     Processor() = default;
 
-    virtual void process(const CounterEvent &event) const = 0;
+    virtual void process(const CounterEvent &event, const State &state) const = 0;
 
     [[nodiscard]] virtual CounterEnum type() const = 0;
 
