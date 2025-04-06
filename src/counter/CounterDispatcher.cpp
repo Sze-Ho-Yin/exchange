@@ -3,8 +3,7 @@
 //
 
 #include "CounterDispatcher.h"
-
-#include "CounterConfigurer.h"
+#include "CountersConfigurer.h"
 
 CounterDispatcher::CounterDispatcher(std::vector<std::unique_ptr<CounterEngine> > &&engines): engines(std::move(
     engines)) {

@@ -4,8 +4,9 @@
 #pragma once
 #include <memory>
 #include <boost/asio/thread_pool.hpp>
+#include "../counter/CounterDispatcher.h"
 
 namespace requests {
     constexpr int SIZE = 1;
-    std::unique_ptr<boost::asio::thread_pool> start();
+    std::unique_ptr<boost::asio::thread_pool> start(std::shared_ptr<const CounterDispatcher> dispatcher);
 };

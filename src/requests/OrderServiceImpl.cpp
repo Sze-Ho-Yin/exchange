@@ -1,9 +1,9 @@
-
 #include "OrderServiceImpl.h"
 #include <boost/asio.hpp>
 
 
-OrderServiceImpl::OrderServiceImpl() = default;
+OrderServiceImpl::OrderServiceImpl(std::shared_ptr<const CounterDispatcher> dispatcher): dispatcher(dispatcher) {
+};
 
 OrderServiceImpl::~OrderServiceImpl() = default;
 
