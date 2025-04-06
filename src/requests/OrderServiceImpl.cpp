@@ -10,11 +10,13 @@ OrderServiceImpl::~OrderServiceImpl() = default;
 grpc::ServerUnaryReactor *OrderServiceImpl::placeOrder(grpc::CallbackServerContext *context,
                                                        const PlaceOrderRequest *request,
                                                        PlaceOrderResponse *response) {
+    auto reactor = context->DefaultReactor();
     auto event = std::make_unique<CounterEvent>(
         request->user_id(),
-        context->DefaultReactor(),
+        reactor,
         *request,
         *response,
         CounterEnum::PLACE_ORDER);
-    return context->DefaultReactor();
+    dispatcher->dispatch(std::move(event));
+    return reactor;
 }

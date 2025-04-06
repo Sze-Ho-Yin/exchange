@@ -16,7 +16,7 @@ public:
 
     ~CounterDispatcher() = default;
 
-    [[nodiscard]] bool dispatch(std::unique_ptr<CounterEvent> event) const;
+    void dispatch(std::unique_ptr<CounterEvent> event) const;
 
     void start(boost::asio::thread_pool &threadPool) const;
 };
