@@ -17,13 +17,14 @@ namespace {
     };
 
     std::once_flag initProcessorFlag;
+
     std::array<std::shared_ptr<const Processor>, counterEnum::size()> getProcessors() {
         static auto processors = std::array<std::shared_ptr<const Processor>, counterEnum::size()>();
-        auto init = [&]() {
+        auto init = []() {
             for (const auto &processor: unorderedProcessors) {
                 const int idx = static_cast<int>(processor->type());
                 processors[idx] = processor;
-            };
+            }
         };
         std::call_once(initProcessorFlag, init);
         return processors;
