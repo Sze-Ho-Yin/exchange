@@ -16,7 +16,7 @@ namespace counter {
         std::vector<std::unique_ptr<CounterEngine> > engines(ENGINE_SIZE);
         for (unsigned int i = 0; i < ENGINE_SIZE; ++i) {
             auto engine = std::make_unique<CounterEngine>(i, ENGINE_QUEUE_SIZE);
-            engines.push_back(std::move(engine));
+            engines[i] = std::move(engine);
         }
 
         //init dispatcher

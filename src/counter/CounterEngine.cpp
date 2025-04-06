@@ -20,7 +20,7 @@ inline void onEvent(const CounterEvent &event, const State &state) {
 
 std::function<void()> CounterEngine::start() {
     return [this]() {
-        spdlog::info("Counter Engine {} Start", idx);
+        spdlog::info("Counter Engine idx={} start success", idx);
         while (true) {
             try {
                 if (CounterEvent *raw = nullptr; counterEvents.pop(raw)) {
