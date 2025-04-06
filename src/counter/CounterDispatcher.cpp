@@ -9,7 +9,7 @@ CounterDispatcher::CounterDispatcher(std::vector<std::unique_ptr<CounterEngine> 
     engines)) {
 }
 
-bool CounterDispatcher::dispatch(std::unique_ptr<CounterEvent> event) const {
+[[nodiscard]] bool CounterDispatcher::dispatch(std::unique_ptr<CounterEvent> event) const {
     const auto userId = event->getUserId();
     const auto shard = userId % counter::ENGINE_SIZE;
     return engines.at(shard)->offer(std::move(event));
